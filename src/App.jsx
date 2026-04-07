@@ -1,4 +1,5 @@
 import HeroSection from "./sections/HeroSection";
+import heroImage from "./assets/hero.png";
 import ProjectGridSection from "./sections/ProjectGridSection";
 
 export default function App() {
