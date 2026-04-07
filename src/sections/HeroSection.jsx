@@ -1,21 +1,20 @@
 export default function HeroSection({
-    heading,
-    text,
+    heading = "Default Heading",
+    text = "Default text description for hero section",
     align = "center",
     image,
-    imageRation = "16/9",
+    imageRation = "16 / 9",
 }) {
-    const textAlign = align;
-
     return (
-        <section style={style.section}>
-            <div style={{ ...styles.container, textAlign}}>
+        <section style={styles.section}>
+            <div style={{ ...styles.container, textAlign: align}}>
+                {/* Text*/}
                 <div style={styles.textWrap}>
                     <h1 style={styles.heading}>{heading}</h1>
                     <p style={styles.text}>{text}</p>
                 </div>
-
-                <div style={{ ...style.imageWrap, aspectRatio: imageRatio}}>
+                {/* IMAGE */}
+                <div style={{ ...styles.imageWrap, aspectRation: imageRatio}}>
                     <img src={image} alt={heading} style={styles.image}/>
                 </div>
             </div>
