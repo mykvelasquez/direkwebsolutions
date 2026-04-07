@@ -7,14 +7,16 @@ export default function ProjectGridSection({
     cardsToShow,
     sectionAlign = "left",
     cardTextAlign = "left",
-    imageRation = "4 / 3",
+    imageRatio = "4 / 3",
 }) {
-    const visibleProjects = cardToShow ? projects.slice(0, cardsToShow) : projects;
+    const visibleProjects = cardsToShow
+      ? projects.slice(0, cardsToShow)
+      : projects;
 
     return (
       <section style={styles.section}>
         <div style={styles.container}>
-          <div style={{...styles.header, textAlign: sectionAlign}}>
+          <div style={{ ...styles.header, textAlign: sectionAlign }}>
             <h2 style={styles.heading}>{heading}</h2>
             <p style={styles.text}>{text}</p>
           </div>
@@ -27,7 +29,7 @@ export default function ProjectGridSection({
                 description={project.description}
                 image={project.image}
                 link={project.link}
-                imageRation={imageRatio}
+                imageRatio={imageRatio}
                 textAlign={cardTextAlign}
               />
             ))}
@@ -51,7 +53,7 @@ const styles = {
   },
   heading: {
     fontSize: "36px",
-    marginBottom: "0 0 12px",
+    margin: "0 0 12px",
     color: "#111111",
   },
   text: {
@@ -66,4 +68,4 @@ const styles = {
     gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
     gap: "24px",
   },
-};
+}
