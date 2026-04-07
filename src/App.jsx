@@ -10,7 +10,7 @@ export default function App() {
         text="Clean, practical, and ready for real business use."
         align="center"
         image={heroImage}
-        imageRation="16 / 9"
+        imageRatio="16 / 9"
       />
       <ProjectGridSection 
         heading="Selected Work"
