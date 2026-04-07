@@ -3,7 +3,7 @@ import edsabdg from "../assets/projects/edsabdg.png";
 import planaspantry from "../assets/projects/planaspantry.png";
 import inthezone from "../assets/projects/inthezone.png";
 
-const project = [
+const projects = [
     {
         id: 1,
         title: "CCC",
