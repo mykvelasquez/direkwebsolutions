@@ -9,24 +9,28 @@ const project = [
         title: "CCC",
         description: "Profile and Presentation website",
         image: ccc,
+        link: "https://clearcapturecreatives.com/",
     },
     {
         id: 2,
         title: "EDSABDG",
         description: "Shopify-based business website.",
         image: edsabdg,
+        link: "https://edsabdg.com/",
     },
     {
         id: 3, 
         title: "Planas Pantry",
         description: "Food business with improved layout and flow.",
         image: planaspantry,
+        link: "https://planaspantry.com/",
     },
     {
         id: 4,
         title: "InTheZoneToyCenter",
         description: "Ongoing Shopify Store Project.",
         image: inthezone,
+        link: "https://inthezonetoycenter.com/password",
     },
 ];
 
