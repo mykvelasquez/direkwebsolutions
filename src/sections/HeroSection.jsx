@@ -5,7 +5,6 @@ export default function HeroSection({
   heading = "Where Shopify Meets Real Operations",
   text = "Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations.",
   image,
-  imageRatio = "16 / 11",
   background = designTokens.colors.backgroundSoftBlue,
   layout = "boxed",
   lazyLoad = false,
@@ -13,14 +12,12 @@ export default function HeroSection({
   secondaryButton = { label: "View Services", href: "#services" },
   supportText = "Setup • Payments • Delivery • Support",
 }) {
-  const isMobile =
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
-
   const styles = {
     section: {
-      padding: isMobile
-        ? `${designTokens.spacing.sectionYTight} ${designTokens.spacing.sectionX}`
-        : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+      padding:
+        layout === "full-no-gap"
+          ? "0"
+          : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
       overflow: "hidden",
@@ -32,128 +29,103 @@ export default function HeroSection({
       width: "100%",
     },
 
-    grid: {
+    content: {
       display: "grid",
-      gridTemplateColumns: isMobile ? "1fr" : "1.05fr 0.95fr",
-      gap: isMobile ? "28px" : designTokens.spacing.gapLarge,
+      gridTemplateColumns: "0.95fr 1.05fr",
       alignItems: "center",
+      gap: "28px",
     },
 
-    left: {
-      maxWidth: isMobile ? "100%" : "620px",
+    textWrap: {
+      maxWidth: "560px",
+      paddingRight: "12px",
     },
 
-    eyebrow: {
-      display: "inline-flex",
+    imageWrap: {
+      width: "100%",
+      minHeight: "500px",
+      borderRadius: designTokens.radius.image,
+      overflow: "hidden",
+      background:
+        "linear-gradient(90deg, #f3f6fb 0%, #edf2fa 45%, #d9e5fb 100%)",
+      display: "flex",
       alignItems: "center",
-      gap: "8px",
-      padding: "8px 14px",
-      marginBottom: "18px",
-      borderRadius: designTokens.radius.button,
-      backgroundColor: "#ffffff",
-      border: designTokens.borders.light,
-      boxShadow: designTokens.shadows.soft,
-      fontSize: "13px",
-      fontWeight: "700",
-      color: designTokens.colors.primary,
-      letterSpacing: "0.02em",
+      justifyContent: "center",
+    },
+
+    image: {
+      width: "100%",
+      height: "100%",
+      objectFit: "contain",
+      objectPosition: "center",
+      display: "block",
     },
 
     heading: {
-      ...designTokens.typography.heroHeading,
-      maxWidth: "11ch",
+      fontSize: "46px",
+      lineHeight: 1.08,
+      fontWeight: "800",
+      letterSpacing: "-0.03em",
+      color: "#17325c",
+      margin: "0 0 20px",
     },
 
     text: {
-      ...designTokens.typography.heroText,
-      maxWidth: "58ch",
-      marginBottom: "28px",
+      fontSize: "18px",
+      lineHeight: 1.7,
+      color: "#31445f",
+      margin: "0 0 26px",
     },
 
     buttonRow: {
       display: "flex",
       flexWrap: "wrap",
       gap: "14px",
-      marginBottom: "18px",
+      marginBottom: "24px",
     },
 
     supportText: {
-      fontSize: "14px",
-      lineHeight: 1.7,
-      color: designTokens.colors.textSoft,
+      fontSize: "15px",
+      lineHeight: 1.6,
+      color: "#31445f",
       margin: 0,
-    },
-
-    imageCol: {
-      position: "relative",
-    },
-
-    imageWrap: {
-      width: "100%",
-      aspectRatio: imageRatio,
-      overflow: "hidden",
-      borderRadius: designTokens.radius.image,
-      backgroundColor: "#dfe8f7",
-      boxShadow: designTokens.shadows.soft,
-      border: designTokens.borders.light,
-    },
-
-    image: {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      display: "block",
-    },
-
-    floatingCard: {
-      position: "absolute",
-      left: isMobile ? "12px" : "-18px",
-      bottom: isMobile ? "12px" : "18px",
-      backgroundColor: "#ffffff",
-      borderRadius: designTokens.radius.card,
-      border: designTokens.borders.light,
-      boxShadow: designTokens.shadows.card,
-      padding: "14px 16px",
-      minWidth: isMobile ? "auto" : "220px",
-    },
-
-    floatingTitle: {
-      fontSize: "14px",
-      fontWeight: "700",
-      color: designTokens.colors.text,
-      margin: "0 0 4px",
-    },
-
-    floatingText: {
-      fontSize: "13px",
-      lineHeight: 1.5,
-      color: designTokens.colors.textSoft,
-      margin: 0,
+      fontWeight: "500",
     },
   };
+
+  const primaryStyle = getButtonStyles("solid", {
+    padding: "15px 34px",
+    fontSize: "16px",
+    backgroundColor: "#2d5fb3",
+    border: "1px solid #2d5fb3",
+    boxShadow: "0 8px 18px rgba(45, 95, 179, 0.18)",
+  });
+
+  const secondaryStyle = getButtonStyles("outline", {
+    padding: "15px 34px",
+    fontSize: "16px",
+    backgroundColor: "#ffffff",
+    color: "#17325c",
+    border: "1px solid #c8d2e3",
+  });
 
   return (
     <section id="home" style={styles.section}>
       <div style={styles.container}>
-        <div style={styles.grid}>
-          <div style={styles.left}>
-            <div style={styles.eyebrow}>Shopify • Operations • Support</div>
-
+        <div style={styles.content}>
+          <div style={styles.textWrap}>
             <h1 style={styles.heading}>{heading}</h1>
             <p style={styles.text}>{text}</p>
 
             <div style={styles.buttonRow}>
               {primaryButton?.label && primaryButton?.href && (
-                <a href={primaryButton.href} style={getButtonStyles("solid")}>
+                <a href={primaryButton.href} style={primaryStyle}>
                   {primaryButton.label}
                 </a>
               )}
 
               {secondaryButton?.label && secondaryButton?.href && (
-                <a
-                  href={secondaryButton.href}
-                  style={getButtonStyles("outline")}
-                >
+                <a href={secondaryButton.href} style={secondaryStyle}>
                   {secondaryButton.label}
                 </a>
               )}
@@ -162,24 +134,15 @@ export default function HeroSection({
             {supportText && <p style={styles.supportText}>{supportText}</p>}
           </div>
 
-          <div style={styles.imageCol}>
-            <div style={styles.imageWrap}>
-              {image && (
-                <img
-                  src={image}
-                  alt={heading}
-                  style={styles.image}
-                  loading={lazyLoad ? "lazy" : "eager"}
-                />
-              )}
-            </div>
-
-            <div style={styles.floatingCard}>
-              <p style={styles.floatingTitle}>Built for real business use</p>
-              <p style={styles.floatingText}>
-                Store setup, workflows, payments, delivery, and support.
-              </p>
-            </div>
+          <div style={styles.imageWrap}>
+            {image && (
+              <img
+                src={image}
+                alt={heading}
+                style={styles.image}
+                loading={lazyLoad ? "lazy" : "eager"}
+              />
+            )}
           </div>
         </div>
       </div>

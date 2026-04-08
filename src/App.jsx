@@ -29,7 +29,6 @@ export default function App() {
         heading="Where Shopify Meets Real Operations"
         text="Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations."
         image={heroImage}
-        imageRatio="16 / 11"
         layout="boxed"
         background={designTokens.colors.backgroundSoftBlue}
         lazyLoad={false}
