@@ -14,6 +14,9 @@ export default function App() {
   return (
     <main>
       <NavbarSection
+        mode="sticky"
+        layout="boxed"
+        background="#214e9b"
         links={[
           { label: "Home", href: "#home" },
           { label: "Services", href: "#services" },
@@ -21,10 +24,8 @@ export default function App() {
           { label: "Support", href: "#support" },
           { label: "Contact", href: "#contact" },
         ]}
-        layout="boxed"
-        background="#214e9b"
       />
-      
+          
       <HeroSection
         heading="Where Shopify Meets Real Operations"
         text="Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations."
