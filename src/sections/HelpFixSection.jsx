@@ -1,20 +1,26 @@
-import helpFix from "../data/helpFix";
 import { designTokens } from "../styles/designTokens";
-import { getButtonStyles } from "../styles/buttonStyles";
 
 export default function HelpFixSection({
-  heading = "Problems I Fix",
-  introText = "I help clean up the parts of a Shopify store that usually slow down growth, confuse customers, or create extra work behind the scenes.",
+  heading = "What I Help Fix",
+  items = [
+    "Stores not ready for real operations",
+    "Confusing checkout setup",
+    "Inefficient order handling",
+    "Poor product organization",
+    "Hard to maintain & update",
+  ],
+  image,
+  imageRatio = "5 / 4",
   background = designTokens.colors.backgroundAlt,
   layout = "boxed",
   lazyLoad = true,
 }) {
-  const isMobile =
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
-
   const styles = {
     section: {
-      padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+      padding:
+        layout === "full-no-gap"
+          ? "0"
+          : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
     },
@@ -25,50 +31,71 @@ export default function HelpFixSection({
       width: "100%",
     },
 
-    header: {
-      textAlign: "center",
-      maxWidth: "760px",
-      margin: "0 auto 56px",
-    },
-
-    heading: {
-      ...designTokens.typography.sectionHeading,
-    },
-
-    introText: {
-      ...designTokens.typography.sectionText,
-    },
-
-    block: {
+    grid: {
       display: "grid",
-      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-      gap: isMobile ? "24px" : designTokens.spacing.gapLarge,
+      gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+      gap: designTokens.spacing.gapLarge,
       alignItems: "center",
-      marginBottom: "64px",
     },
 
     textWrap: {
       maxWidth: "560px",
     },
 
-    itemTitle: {
-      fontSize: "clamp(1.35rem, 2vw, 1.75rem)",
-      lineHeight: 1.2,
-      fontWeight: "800",
-      color: designTokens.colors.text,
-      margin: "0 0 14px",
-      letterSpacing: "-0.02em",
+    headingRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: "16px",
+      marginBottom: "28px",
     },
 
-    itemDescription: {
-      ...designTokens.typography.sectionText,
-      marginBottom: "20px",
-      maxWidth: "52ch",
+    heading: {
+      ...designTokens.typography.sectionHeading,
+      margin: 0,
+      whiteSpace: "nowrap",
+    },
+
+    headingLine: {
+      height: "1px",
+      backgroundColor: designTokens.colors.border,
+      flexGrow: 1,
+    },
+
+    list: {
+      display: "grid",
+      gap: "18px",
+      padding: 0,
+      margin: 0,
+      listStyle: "none",
+    },
+
+    listItem: {
+      display: "flex",
+      alignItems: "center",
+      gap: "12px",
+      fontSize: "18px",
+      lineHeight: 1.5,
+      color: designTokens.colors.text,
+      fontWeight: "500",
+    },
+
+    icon: {
+      flexShrink: 0,
+      width: "22px",
+      height: "22px",
+      borderRadius: "999px",
+      backgroundColor: "#2ea44f",
+      color: "#ffffff",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "14px",
+      fontWeight: "700",
     },
 
     imageWrap: {
       width: "100%",
-      aspectRatio: "5 / 4",
+      aspectRatio: imageRatio,
       borderRadius: designTokens.radius.image,
       overflow: "hidden",
       backgroundColor: "#dfe8f7",
@@ -87,36 +114,34 @@ export default function HelpFixSection({
   return (
     <section id="help-fix" style={styles.section}>
       <div style={styles.container}>
-        <div style={styles.header}>
-          <h2 style={styles.heading}>{heading}</h2>
-          {introText && <p style={styles.introText}>{introText}</p>}
-        </div>
-
-        {helpFix.map((item, index) => {
-          const reverse = !isMobile && index % 2 !== 0;
-
-          return (
-            <div key={item.id} style={styles.block}>
-              <div style={{ order: reverse ? 2 : 1, ...styles.textWrap }}>
-                <h3 style={styles.itemTitle}>{item.title}</h3>
-                <p style={styles.itemDescription}>{item.description}</p>
-
-                <a href="#contact" style={getButtonStyles("link")}>
-                  Let’s talk about this →
-                </a>
-              </div>
-
-              <div style={{ order: reverse ? 1 : 2, ...styles.imageWrap }}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  style={styles.image}
-                  loading={lazyLoad ? "lazy" : "eager"}
-                />
-              </div>
+        <div style={styles.grid}>
+          <div style={styles.textWrap}>
+            <div style={styles.headingRow}>
+              <h2 style={styles.heading}>{heading}</h2>
+              <div style={styles.headingLine}></div>
             </div>
-          );
-        })}
+
+            <ul style={styles.list}>
+              {items.map((item, index) => (
+                <li key={index} style={styles.listItem}>
+                  <span style={styles.icon}>✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div style={styles.imageWrap}>
+            {image && (
+              <img
+                src={image}
+                alt={heading}
+                style={styles.image}
+                loading={lazyLoad ? "lazy" : "eager"}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

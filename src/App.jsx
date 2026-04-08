@@ -8,6 +8,7 @@ import heroImage from "./assets/hero.png";
 import ContactSection from "./sections/ContactSection";
 import ProjectGridSection from "./sections/ProjectGridSection";
 import { designTokens } from "./styles/designTokens";
+import helpFixImage from "./assets/helpfix.png";
 
 export default function App() {
   return (
@@ -48,8 +49,16 @@ export default function App() {
       />
 
       <HelpFixSection
-        heading="Problems I Fix"
-        introText="I help clean up the parts of a Shopify store that usually slow down growth, confuse customers, or create extra work behind the scenes."
+        heading="What I Help Fix"
+        items={[
+          "Stores not ready for real operations",
+          "Confusing checkout setup",
+          "Inefficient order handling",
+          "Poor product organization",
+          "Hard to maintain & update",
+        ]}
+        image={helpFixImage}
+        imageRatio="5 / 4"
         background={designTokens.colors.backgroundAlt}
         layout="boxed"
         lazyLoad={true}
