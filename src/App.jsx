@@ -2,6 +2,8 @@ import NavbarSection from "./sections/NavbarSection";
 import HeroSection from "./sections/HeroSection";
 import ServicesSection from "./sections/ServicesSection";
 import HelpFixSection from "./sections/HelpFixSection";
+import OngoingSupportSection from "./sections/OngoingSupportSection";
+import supportImage from "./assets/support.png";
 import heroImage from "./assets/hero.png";
 import ProjectGridSection from "./sections/ProjectGridSection";
 
@@ -46,6 +48,16 @@ export default function App() {
         heading="Problems I Fix"
         background="#f8f8f8"
         layout="boxed"
+      />
+
+      <OngoingSupportSection
+        heading="Ongoing Support"
+        text="Launching your store is only the beginning. I also help with updates, adjustments, and practical support so your Shopify store continues to work for your business over time."
+        image={supportImage}
+        imageRatio="4 / 3"
+        layout="boxed"
+        background="#eef3fb"
+        lazyLoad={true}
       />
 
       <ProjectGridSection
