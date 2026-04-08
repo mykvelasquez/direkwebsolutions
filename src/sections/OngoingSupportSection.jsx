@@ -94,7 +94,7 @@ export default function OngoingSupportSection({
     badgeRow: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr 1fr",
-      gap: "14px",
+      gap: "5px",
       marginTop: "8px",
     },
 
@@ -166,12 +166,17 @@ export default function OngoingSupportSection({
             </p>
 
             <div style={styles.badgeRow}>
-              {supportBadges.map((badge, index) => (
+              {supportBadges.map((badge) => (
                 <div
                   key={badge.id}
-                  style={{
-                    ...styles.badge,
-                    ...(index === supportBadges.length - 1 ? styles.lastBadge : {}),
+                  style={styles.badge}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                    e.currentTarget.style.boxShadow = designTokens.shadows.cardHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = designTokens.shadows.card;
                   }}
                 >
                   <span style={styles.check}>✔</span>
