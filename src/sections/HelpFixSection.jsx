@@ -1,67 +1,86 @@
 import helpFix from "../data/helpFix";
 import { designTokens } from "../styles/designTokens";
+import { getButtonStyles } from "../styles/buttonStyles";
 
 export default function HelpFixSection({
   heading = "Problems I Fix",
-  background = "#ffffff",
+  introText = "I help clean up the parts of a Shopify store that usually slow down growth, confuse customers, or create extra work behind the scenes.",
+  background = designTokens.colors.backgroundAlt,
   layout = "boxed",
+  lazyLoad = true,
 }) {
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
+
   const styles = {
     section: {
       padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
+      width: "100%",
     },
 
     container: {
-      maxWidth:
-        layout === "boxed" ? designTokens.spacing.container : "100%",
+      maxWidth: layout === "boxed" ? designTokens.spacing.container : "100%",
       margin: "0 auto",
+      width: "100%",
     },
 
     header: {
       textAlign: "center",
-      marginBottom: "60px",
+      maxWidth: "760px",
+      margin: "0 auto 56px",
     },
 
     heading: {
       ...designTokens.typography.sectionHeading,
     },
 
+    introText: {
+      ...designTokens.typography.sectionText,
+    },
+
     block: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: "40px",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+      gap: isMobile ? "24px" : designTokens.spacing.gapLarge,
       alignItems: "center",
-      marginBottom: "60px",
+      marginBottom: "64px",
     },
 
     textWrap: {
-      maxWidth: "520px",
+      maxWidth: "560px",
     },
 
-    title: {
-      fontSize: "24px",
-      fontWeight: "700",
-      marginBottom: "12px",
+    itemTitle: {
+      fontSize: "clamp(1.35rem, 2vw, 1.75rem)",
+      lineHeight: 1.2,
+      fontWeight: "800",
       color: designTokens.colors.text,
+      margin: "0 0 14px",
+      letterSpacing: "-0.02em",
     },
 
-    description: {
-      fontSize: "16px",
-      lineHeight: 1.6,
-      color: designTokens.colors.textSoft,
+    itemDescription: {
+      ...designTokens.typography.sectionText,
+      marginBottom: "20px",
+      maxWidth: "52ch",
     },
 
     imageWrap: {
       width: "100%",
-      borderRadius: designTokens.radius.card,
+      aspectRatio: "5 / 4",
+      borderRadius: designTokens.radius.image,
       overflow: "hidden",
+      backgroundColor: "#dfe8f7",
+      boxShadow: designTokens.shadows.soft,
+      border: designTokens.borders.light,
     },
 
     image: {
       width: "100%",
-      display: "block",
+      height: "100%",
       objectFit: "cover",
+      display: "block",
     },
   };
 
@@ -70,28 +89,30 @@ export default function HelpFixSection({
       <div style={styles.container}>
         <div style={styles.header}>
           <h2 style={styles.heading}>{heading}</h2>
+          {introText && <p style={styles.introText}>{introText}</p>}
         </div>
 
         {helpFix.map((item, index) => {
-          const isReverse = index % 2 !== 0;
+          const reverse = !isMobile && index % 2 !== 0;
 
           return (
-            <div
-              key={item.id}
-              style={{
-                ...styles.block,
-                direction: isReverse ? "rtl" : "ltr",
-              }}
-            >
-              {/* TEXT */}
-              <div style={{ ...styles.textWrap, direction: "ltr" }}>
-                <h3 style={styles.title}>{item.title}</h3>
-                <p style={styles.description}>{item.description}</p>
+            <div key={item.id} style={styles.block}>
+              <div style={{ order: reverse ? 2 : 1, ...styles.textWrap }}>
+                <h3 style={styles.itemTitle}>{item.title}</h3>
+                <p style={styles.itemDescription}>{item.description}</p>
+
+                <a href="#contact" style={getButtonStyles("link")}>
+                  Let’s talk about this →
+                </a>
               </div>
 
-              {/* IMAGE */}
-              <div style={styles.imageWrap}>
-                <img src={item.image} alt={item.title} style={styles.image} />
+              <div style={{ order: reverse ? 1 : 2, ...styles.imageWrap }}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  style={styles.image}
+                  loading={lazyLoad ? "lazy" : "eager"}
+                />
               </div>
             </div>
           );
