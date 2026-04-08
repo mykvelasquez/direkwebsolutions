@@ -14,94 +14,101 @@ export default function ProjectCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const getCardStyle = () => {
-    const base = {
-      backgroundColor: "#ffffff",
-      border: `1px solid ${designTokens.colors.border}`,
+  const styles = {
+    card: {
+      backgroundColor: designTokens.colors.background,
+      border: designTokens.borders.light,
       borderRadius: designTokens.radius.card,
       overflow: "hidden",
       boxShadow: designTokens.shadows.card,
       transition: designTokens.transitions.smooth,
-    };
+      transform: "translateY(0)",
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
+    },
 
-    if (hoverEffect === "lift" && isHovered) {
-      return {
-        ...base,
-        transform: "translateY(-6px)",
-        boxShadow: designTokens.shadows.cardHover,
-      };
-    }
+    imageWrap: {
+      width: "100%",
+      aspectRatio: imageRatio,
+      overflow: "hidden",
+      backgroundColor: "#eaeef5",
+    },
 
-    return base;
-  };
+    image: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      display: "block",
+      transition: designTokens.transitions.smooth,
+      transform:
+        hoverEffect === "zoom" && isHovered ? "scale(1.05)" : "scale(1)",
+    },
 
-  const imageStyle = {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    display: "block",
-    transition: designTokens.transitions.smooth,
-    transform:
-      hoverEffect === "zoom" && isHovered ? "scale(1.06)" : "scale(1)",
+    content: {
+      padding: "20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "10px",
+      flexGrow: 1,
+    },
+
+    title: {
+      ...designTokens.typography.cardTitle,
+    },
+
+    description: {
+      ...designTokens.typography.cardText,
+      flexGrow: 1,
+    },
+
+    link: {
+      marginTop: "10px",
+      fontSize: "14px",
+      fontWeight: "600",
+      color: designTokens.colors.primary,
+      textDecoration: "none",
+    },
   };
 
   return (
     <article
-      style={getCardStyle()}
+      style={styles.card}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onMouseOver={(e) => {
+        if (hoverEffect === "lift") {
+          e.currentTarget.style.transform = "translateY(-6px)";
+          e.currentTarget.style.boxShadow = designTokens.shadows.cardHover;
+        }
+      }}
+      onMouseOut={(e) => {
+        if (hoverEffect === "lift") {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = designTokens.shadows.card;
+        }
+      }}
     >
-      <div
-        style={{
-          width: "100%",
-          overflow: "hidden",
-          backgroundColor: "#f2f2f2",
-          aspectRatio: imageRatio,
-        }}
-      >
+      <div style={styles.imageWrap}>
         <img
-          src={hoverEffect === "swap-image" && isHovered && secondImage ? secondImage : image}
+          src={
+            hoverEffect === "swap-image" && isHovered && secondImage
+              ? secondImage
+              : image
+          }
           alt={title}
-          style={imageStyle}
+          style={styles.image}
           loading={lazyLoad ? "lazy" : "eager"}
         />
       </div>
 
-      <div style={{ padding: "18px", textAlign }}>
-        <h3
-          style={{
-            fontSize: "20px",
-            margin: "0 0 10px",
-            color: "#111111",
-          }}
-        >
-          {title}
-        </h3>
-
-        <p
-          style={{
-            fontSize: "15px",
-            lineHeight: 1.6,
-            color: "#555555",
-            margin: "0 0 14px",
-          }}
-        >
-          {description}
-        </p>
+      <div style={{ ...styles.content, textAlign }}>
+        <h3 style={styles.title}>{title}</h3>
+        <p style={styles.description}>{description}</p>
 
         {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: "inline-block",
-              color: "#111111",
-              fontWeight: "600",
-              textDecoration: "none",
-            }}
-          >
-            View Project
+          <a href={link} target="_blank" rel="noreferrer" style={styles.link}>
+            View Project →
           </a>
         )}
       </div>
