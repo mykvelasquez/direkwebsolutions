@@ -5,6 +5,7 @@ import HelpFixSection from "./sections/HelpFixSection";
 import OngoingSupportSection from "./sections/OngoingSupportSection";
 import supportImage from "./assets/support.png";
 import heroImage from "./assets/hero.png";
+import ContactSection from "./sections/ContactSection";
 import ProjectGridSection from "./sections/ProjectGridSection";
 
 export default function App() {
@@ -71,6 +72,13 @@ export default function App() {
         background="#f8f8f8"
         lazyLoad={true}
         hoverEffect="lift"
+      />
+
+      <ContactSection
+        heading="Contact Us"
+        text="Tell me a bit about what you need and I’ll get back to you."
+        layout="boxed"
+        background="#ffffff"
       />
     </main>
   );
