@@ -94,26 +94,22 @@ export default function OngoingSupportSection({
     badgeRow: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr 1fr",
-      gap: "0",
+      gap: "14px",
       marginTop: "8px",
-      border: designTokens.borders.light,
-      borderRadius: "8px",
-      overflow: "hidden",
-      backgroundColor: "#f7f8fa",
     },
 
     badge: {
       display: "flex",
       alignItems: "center",
-      gap: "10px",
+      gap: "12px",
       padding: "16px 20px",
       minHeight: "74px",
-      borderRight: designTokens.borders.light,
       backgroundColor: "#f7f8fa",
-    },
-
-    lastBadge: {
-      borderRight: "none",
+      border: designTokens.borders.light,
+      borderRadius: "10px",
+      boxShadow: designTokens.shadows.card,
+      transition: designTokens.transitions.smooth,
+      transform: "translateY(0)",
     },
 
     check: {
