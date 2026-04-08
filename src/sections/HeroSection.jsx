@@ -17,7 +17,7 @@ export default function HeroSection({
       padding:
         layout === "full-no-gap"
           ? "0"
-          : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+          : `40px ${designTokens.spacing.sectionX} 48px`,
       backgroundColor: background,
       width: "100%",
       overflow: "hidden",
@@ -31,19 +31,20 @@ export default function HeroSection({
 
     content: {
       display: "grid",
-      gridTemplateColumns: "0.95fr 1.05fr",
-      alignItems: "center",
-      gap: "28px",
+      gridTemplateColumns: "1fr 1fr",
+      alignItems: "start",
+      gap: "32px",
     },
 
     textWrap: {
-      maxWidth: "560px",
-      paddingRight: "12px",
+      width: "100%",
+      maxWidth: "640px",
+      paddingTop: "18px",
     },
 
     imageWrap: {
       width: "100%",
-      minHeight: "500px",
+      minHeight: "380px",
       borderRadius: designTokens.radius.image,
       overflow: "hidden",
       background:
@@ -56,32 +57,33 @@ export default function HeroSection({
     image: {
       width: "100%",
       height: "100%",
-      objectFit: "contain",
+      objectFit: "cover",
       objectPosition: "center",
       display: "block",
     },
 
     heading: {
-      fontSize: "46px",
-      lineHeight: 1.08,
+      fontSize: "52px",
+      lineHeight: 1.05,
       fontWeight: "800",
       letterSpacing: "-0.03em",
       color: "#17325c",
-      margin: "0 0 20px",
+      margin: "0 0 18px",
     },
 
     text: {
       fontSize: "18px",
       lineHeight: 1.7,
       color: "#31445f",
-      margin: "0 0 26px",
+      margin: "0 0 24px",
+      maxWidth: "36ch",
     },
 
     buttonRow: {
       display: "flex",
       flexWrap: "wrap",
       gap: "14px",
-      marginBottom: "24px",
+      marginBottom: "22px",
     },
 
     supportText: {

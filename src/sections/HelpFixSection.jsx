@@ -23,6 +23,7 @@ export default function HelpFixSection({
           : `${designTokens.spacing.sectionYTight} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
+      overflow: "hidden",
     },
 
     container: {
@@ -33,12 +34,13 @@ export default function HelpFixSection({
 
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-      gap: designTokens.spacing.gapLarge,
+      gridTemplateColumns: "0.95fr 1.05fr",
       alignItems: "center",
+      gap: "28px",
     },
 
     textWrap: {
+      width: "100%",
       maxWidth: "560px",
     },
 

@@ -1,25 +1,28 @@
 import supportBadges from "../data/supportBadges";
-import TrustBadge from "../components/TrustBadge";
 import { designTokens } from "../styles/designTokens";
-import { getButtonStyles } from "../styles/buttonStyles";
 
 export default function OngoingSupportSection({
   heading = "Ongoing Support",
-  text = "Launching your store is only the beginning. I also help with updates, adjustments, and practical support so your Shopify store continues to work for your business over time.",
+  paragraphs = [
+    "With a background in operations and customer-facing roles, I approach Shopify beyond just setup.",
+    "I work with businesses long-term to keep their stores organized, updated, and aligned with how they actually operate.",
+    "That includes product updates, store adjustments, and ongoing support as the business grows.",
+  ],
   image,
-  imageRatio = "5 / 4",
+  imageRatio = "4 / 4.6",
   layout = "boxed",
-  background = designTokens.colors.backgroundSoftBlue,
+  background = designTokens.colors.background,
   lazyLoad = true,
 }) {
-  const isMobile =
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
-
   const styles = {
     section: {
-      padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+      padding:
+        layout === "full-no-gap"
+          ? "0"
+          : `${designTokens.spacing.sectionYTight} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
+      borderTop: designTokens.borders.light,
     },
 
     container: {
@@ -30,18 +33,17 @@ export default function OngoingSupportSection({
 
     grid: {
       display: "grid",
-      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-      gap: isMobile ? "24px" : designTokens.spacing.gapLarge,
-      alignItems: "center",
+      gridTemplateColumns: "0.78fr 1.22fr",
+      gap: "60px",
+      alignItems: "start",
     },
 
     imageWrap: {
       width: "100%",
       aspectRatio: imageRatio,
       overflow: "hidden",
-      borderRadius: designTokens.radius.image,
-      backgroundColor: "#dfe8f7",
-      boxShadow: designTokens.shadows.soft,
+      borderRadius: "15px",
+      backgroundColor: "#e9edf3",
       border: designTokens.borders.light,
     },
 
@@ -53,25 +55,80 @@ export default function OngoingSupportSection({
     },
 
     textWrap: {
-      maxWidth: "580px",
+      width: "100%",
+      maxWidth: "100%",
+      paddingTop: "8px",
+    },
+
+    headingRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      marginBottom: "30px",
     },
 
     heading: {
       ...designTokens.typography.sectionHeading,
-      marginBottom: "14px",
+      margin: 0,
+      whiteSpace: "nowrap",
     },
 
-    text: {
-      ...designTokens.typography.sectionText,
-      marginBottom: "24px",
-      maxWidth: "54ch",
+    headingLine: {
+      height: "1px",
+      backgroundColor: designTokens.colors.border,
+      flexGrow: 1,
     },
 
-    badgeGrid: {
+    paragraph: {
+      fontSize: "20px",
+      lineHeight: 1.7,
+      color: "#24344d",
+      margin: "0 0 26px",
+    },
+
+    strong: {
+      fontWeight: "800",
+      color: "#142f57",
+    },
+
+    badgeRow: {
       display: "grid",
-      gridTemplateColumns: "1fr",
-      gap: "14px",
-      marginBottom: "22px",
+      gridTemplateColumns: "1fr 1fr 1fr",
+      gap: "0",
+      marginTop: "8px",
+      border: designTokens.borders.light,
+      borderRadius: "8px",
+      overflow: "hidden",
+      backgroundColor: "#f7f8fa",
+    },
+
+    badge: {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      padding: "16px 20px",
+      minHeight: "74px",
+      borderRight: designTokens.borders.light,
+      backgroundColor: "#f7f8fa",
+    },
+
+    lastBadge: {
+      borderRight: "none",
+    },
+
+    check: {
+      flexShrink: 0,
+      fontSize: "16px",
+      fontWeight: "800",
+      color: "#2d5fb3",
+      lineHeight: 1,
+    },
+
+    badgeText: {
+      fontSize: "17px",
+      lineHeight: 1.2,
+      fontWeight: "800",
+      color: "#24344d",
     },
   };
 
@@ -91,22 +148,41 @@ export default function OngoingSupportSection({
           </div>
 
           <div style={styles.textWrap}>
-            <h2 style={styles.heading}>{heading}</h2>
-            <p style={styles.text}>{text}</p>
-
-            <div style={styles.badgeGrid}>
-              {supportBadges.map((badge) => (
-                <TrustBadge
-                  key={badge.id}
-                  title={badge.title}
-                  description={badge.description}
-                />
-              ))}
+            <div style={styles.headingRow}>
+              <h2 style={styles.heading}>{heading}</h2>
+              <div style={styles.headingLine}></div>
             </div>
 
-            <a href="#contact" style={getButtonStyles("outline")}>
-              Ask About Support
-            </a>
+            <p style={styles.paragraph}>
+              With a background in operations and customer-facing roles, I
+              approach <span style={styles.strong}>Shopify beyond just setup.</span>
+            </p>
+
+            <p style={styles.paragraph}>
+              I work with businesses long-term to keep their stores organized,
+              updated, and aligned with how they actually operate.
+            </p>
+
+            <p style={{ ...styles.paragraph, marginBottom: "30px" }}>
+              That includes product updates, store adjustments, and{" "}
+              <span style={styles.strong}>ongoing support</span> as the
+              business grows.
+            </p>
+
+            <div style={styles.badgeRow}>
+              {supportBadges.map((badge, index) => (
+                <div
+                  key={badge.id}
+                  style={{
+                    ...styles.badge,
+                    ...(index === supportBadges.length - 1 ? styles.lastBadge : {}),
+                  }}
+                >
+                  <span style={styles.check}>✔</span>
+                  <span style={styles.badgeText}>{badge.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -67,7 +67,7 @@ export default function App() {
         heading="Ongoing Support"
         text="Launching your store is only the beginning. I also help with updates, adjustments, and practical support so your Shopify store continues to work for your business over time."
         image={supportImage}
-        imageRatio="5 / 4"
+        imageRatio="605 / 675"
         layout="boxed"
         background={designTokens.colors.backgroundSoftBlue}
         lazyLoad={true}
