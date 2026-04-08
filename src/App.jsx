@@ -6,14 +6,16 @@ export default function App() {
   return (
     <main>
       <HeroSection
-        heading="Shopify Websites That Convert"
-        text="Clean, practical, and ready for real business use."
-        align="center"
-        //image={heroImage}
-        imageRatio="16 / 9"
+        heading="Where Shopify Meets Real Operations"
+        text="Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations."
+        image={heroImage}
+        imageRatio="16 / 10"
         layout="boxed"
-        background="#ffffff"
-        lazyLoad={true}
+        background="#eef3fb"
+        lazyLoad={false}
+        primaryButton={{ label: "Get Started", href: "#contact" }}
+        secondaryButton={{ label: "View Services", href: "#services" }}
+        supportText="Setup • Payments • Delivery • Support"
       />
 
       <ProjectGridSection
