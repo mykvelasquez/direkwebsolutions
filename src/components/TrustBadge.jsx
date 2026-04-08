@@ -3,21 +3,24 @@ import { designTokens } from "../styles/designTokens";
 export default function TrustBadge({ title, description }) {
   const styles = {
     badge: {
-      backgroundColor: "#ffffff",
-      border: `1px solid ${designTokens.colors.border}`,
+      backgroundColor: designTokens.colors.background,
+      border: designTokens.borders.light,
       borderRadius: designTokens.radius.card,
       padding: "16px 18px",
       boxShadow: designTokens.shadows.card,
     },
+
     title: {
       fontSize: "16px",
+      lineHeight: 1.35,
       fontWeight: "700",
       color: designTokens.colors.text,
       margin: "0 0 6px",
     },
+
     description: {
       fontSize: "14px",
-      lineHeight: 1.6,
+      lineHeight: 1.65,
       color: designTokens.colors.textSoft,
       margin: 0,
     },

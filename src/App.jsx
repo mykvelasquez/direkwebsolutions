@@ -49,17 +49,19 @@ export default function App() {
 
       <HelpFixSection
         heading="Problems I Fix"
-        background="#f8f8f8"
+        introText="I help clean up the parts of a Shopify store that usually slow down growth, confuse customers, or create extra work behind the scenes."
+        background={designTokens.colors.backgroundAlt}
         layout="boxed"
+        lazyLoad={true}
       />
 
       <OngoingSupportSection
         heading="Ongoing Support"
         text="Launching your store is only the beginning. I also help with updates, adjustments, and practical support so your Shopify store continues to work for your business over time."
         image={supportImage}
-        imageRatio="4 / 3"
+        imageRatio="5 / 4"
         layout="boxed"
-        background="#eef3fb"
+        background={designTokens.colors.backgroundSoftBlue}
         lazyLoad={true}
       />
 
