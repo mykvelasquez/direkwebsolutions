@@ -1,6 +1,7 @@
 import NavbarSection from "./sections/NavbarSection";
 import HeroSection from "./sections/HeroSection";
 import ServicesSection from "./sections/ServicesSection";
+import HelpFixSection from "./sections/HelpFixSection";
 import heroImage from "./assets/hero.png";
 import ProjectGridSection from "./sections/ProjectGridSection";
 
@@ -30,7 +31,7 @@ export default function App() {
         secondaryButton={{ label: "View Services", href: "#services" }}
         supportText="Setup • Payments • Delivery • Support"
       />
-      
+
       <ServicesSection
         heading="What I Do"
         text=""
@@ -39,6 +40,12 @@ export default function App() {
         sectionAlign="center"
         cardTextAlign="center"
         hoverEffect="lift"
+      />
+
+      <HelpFixSection
+        heading="Problems I Fix"
+        background="#f8f8f8"
+        layout="boxed"
       />
 
       <ProjectGridSection
