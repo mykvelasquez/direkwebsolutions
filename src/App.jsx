@@ -39,9 +39,9 @@ export default function App() {
 
       <ServicesSection
         heading="What I Do"
-        text=""
+        text="Practical Shopify help focused on setup, store structure, checkout, and ongoing operations."
         layout="boxed"
-        background="#ffffff"
+        background={designTokens.colors.background}
         sectionAlign="center"
         cardTextAlign="center"
         hoverEffect="lift"

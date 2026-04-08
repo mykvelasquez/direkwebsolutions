@@ -9,52 +9,60 @@ export default function FeatureCard({
 }) {
   const styles = {
     card: {
-      backgroundColor: "#ffffff",
-      border: `1px solid ${designTokens.colors.border}`,
+      backgroundColor: designTokens.colors.background,
+      border: designTokens.borders.light,
       borderRadius: designTokens.radius.card,
-      padding: "24px 20px",
+      padding: designTokens.spacing.cardPadding,
       textAlign,
       boxShadow: designTokens.shadows.card,
       transition: designTokens.transitions.smooth,
       height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      transform: "translateY(0)",
     },
 
     iconWrap: {
-      width: "64px",
+      width: "68px",
       aspectRatio: "1 / 1",
       margin:
         textAlign === "left"
-          ? "0 0 16px"
+          ? "0 0 18px"
           : textAlign === "right"
-          ? "0 0 16px auto"
-          : "0 auto 16px",
+          ? "0 0 18px auto"
+          : "0 auto 18px",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "32px",
-      backgroundColor: "#f3f6fb",
-      borderRadius: "16px",
+      fontSize: "30px",
+      backgroundColor: designTokens.colors.iconBackground,
+      borderRadius: designTokens.radius.iconBox,
+      boxShadow: "inset 0 0 0 1px rgba(31, 79, 149, 0.05)",
     },
 
     title: {
-      fontSize: "20px",
-      lineHeight: 1.3,
-      color: designTokens.colors.text,
-      margin: "0 0 10px",
-      fontWeight: "700",
+      ...designTokens.typography.cardTitle,
+      maxWidth: textAlign === "center" ? "16ch" : "none",
+      margin:
+        textAlign === "center"
+          ? "0 auto 10px"
+          : textAlign === "right"
+          ? "0 0 10px auto"
+          : "0 0 10px",
     },
 
     description: {
-      fontSize: "15px",
-      lineHeight: 1.6,
-      color: designTokens.colors.textSoft,
-      margin: 0,
+      ...designTokens.typography.cardText,
+      maxWidth: textAlign === "center" ? "28ch" : "none",
+      margin:
+        textAlign === "center"
+          ? "0 auto"
+          : textAlign === "right"
+          ? "0 0 0 auto"
+          : "0",
     },
   };
-
-  if (hoverEffect === "lift") {
-    styles.card.transform = "translateY(0)";
-  }
 
   return (
     <article

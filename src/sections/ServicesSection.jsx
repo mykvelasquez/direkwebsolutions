@@ -4,13 +4,16 @@ import { designTokens } from "../styles/designTokens";
 
 export default function ServicesSection({
   heading = "What I Do",
-  text = "",
+  text = "Practical Shopify help focused on setup, store structure, checkout, and ongoing operations.",
   layout = "boxed",
-  background = "#ffffff",
+  background = designTokens.colors.background,
   sectionAlign = "center",
   cardTextAlign = "center",
   hoverEffect = "lift",
 }) {
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
+
   const styles = {
     section: {
       padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
@@ -27,7 +30,7 @@ export default function ServicesSection({
 
     header: {
       textAlign: sectionAlign,
-      marginBottom: "32px",
+      marginBottom: "36px",
     },
 
     heading: {
@@ -38,13 +41,20 @@ export default function ServicesSection({
       ...designTokens.typography.sectionText,
       maxWidth: "720px",
       margin:
-        sectionAlign === "center" ? "0 auto" : sectionAlign === "right" ? "0 0 0 auto" : "0",
+        sectionAlign === "center"
+          ? "0 auto"
+          : sectionAlign === "right"
+          ? "0 0 0 auto"
+          : "0",
     },
 
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+      gridTemplateColumns: isMobile
+        ? "1fr"
+        : "repeat(auto-fit, minmax(220px, 1fr))",
       gap: designTokens.spacing.gap,
+      alignItems: "stretch",
     },
   };
 
