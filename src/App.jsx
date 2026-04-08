@@ -1,5 +1,6 @@
 import NavbarSection from "./sections/NavbarSection";
 import HeroSection from "./sections/HeroSection";
+import ServicesSection from "./sections/ServicesSection";
 import heroImage from "./assets/hero.png";
 import ProjectGridSection from "./sections/ProjectGridSection";
 
@@ -28,6 +29,16 @@ export default function App() {
         primaryButton={{ label: "Get Started", href: "#contact" }}
         secondaryButton={{ label: "View Services", href: "#services" }}
         supportText="Setup • Payments • Delivery • Support"
+      />
+      
+      <ServicesSection
+        heading="What I Do"
+        text=""
+        layout="boxed"
+        background="#ffffff"
+        sectionAlign="center"
+        cardTextAlign="center"
+        hoverEffect="lift"
       />
 
       <ProjectGridSection
