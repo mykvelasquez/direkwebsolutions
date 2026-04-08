@@ -5,6 +5,17 @@ import ProjectGridSection from "./sections/ProjectGridSection";
 export default function App() {
   return (
     <main>
+      <NavbarSection
+        links={[
+          { label: "Home", href: "#home" },
+          { label: "Services", href: "#services" },
+          { label: "Problems I Fix", href: "#help-fix" },
+          { label: "Support", href: "#support" },
+          { label: "Contact", href: "#contact" },
+        ]}
+        layout="boxed"
+        background="#214e9b"
+      />
       <HeroSection
         heading="Where Shopify Meets Real Operations"
         text="Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations."

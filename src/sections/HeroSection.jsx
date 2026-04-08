@@ -92,7 +92,7 @@ export default function HeroSection({
   }
 
   return (
-    <section style={styles.section}>
+    <section id="home" style={styles.section}>
       <div style={styles.container}>
         <div style={styles.grid}>
           <div style={styles.left}>
