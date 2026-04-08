@@ -1,69 +1,68 @@
 import { useState } from "react";
-import { getButtonStyles } from "../styles/buttonStyles";
 
 export default function Button({
-  href,
   children,
-  variant = "solid",
+  href,
+  onClick,
+  type = "button", // supports submit
   style = {},
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-  const baseStyle = getButtonStyles(variant, style);
+  const baseStyle = {
+    display: "inline-block",
+    textDecoration: "none",
+    cursor: "pointer",
+    transition: "all 0.2s ease",
+    ...style,
+  };
 
-  let interactiveStyle = {};
+  const hoverStyle = isHovered
+    ? {
+        transform: "translateY(-2px)",
+        filter: "brightness(1.05)",
+      }
+    : {};
 
-  if (variant === "solid") {
-    if (isHovered) {
-      interactiveStyle = {
-        backgroundColor: "#1f4f95",
-        border: "1px solid #1f4f95",
-      };
-    }
-    if (isActive) {
-      interactiveStyle = {
-        backgroundColor: "#173e77",
-        border: "1px solid #173e77",
-        transform: "translateY(1px)",
-      };
-    }
+  const activeStyle = isActive
+    ? {
+        transform: "translateY(0)",
+        filter: "brightness(0.95)",
+      }
+    : {};
+
+  const combinedStyle = {
+    ...baseStyle,
+    ...hoverStyle,
+    ...activeStyle,
+  };
+
+  // 👉 LINK MODE
+  if (href) {
+    return (
+      <a
+        href={href}
+        style={combinedStyle}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          setIsActive(false);
+        }}
+        onMouseDown={() => setIsActive(true)}
+        onMouseUp={() => setIsActive(false)}
+      >
+        {children}
+      </a>
+    );
   }
 
-  if (variant === "outline") {
-    if (isHovered) {
-      interactiveStyle = {
-        backgroundColor: "#eef4fb",
-        border: "1px solid #9fb6db",
-      };
-    }
-    if (isActive) {
-      interactiveStyle = {
-        backgroundColor: "#dfe8f7",
-        border: "1px solid #7f9dcb",
-        transform: "translateY(1px)",
-      };
-    }
-  }
-
-  if (variant === "link") {
-    if (isHovered) {
-      interactiveStyle = {
-        color: "#1f4f95",
-      };
-    }
-    if (isActive) {
-      interactiveStyle = {
-        color: "#173e77",
-        transform: "translateY(1px)",
-      };
-    }
-  }
-
+  // 👉 BUTTON MODE (submit, click, etc.)
   return (
-    <a
-      href={href}
-      style={{ ...baseStyle, ...interactiveStyle }}
+    <button
+      type={type}
+      onClick={onClick}
+      style={combinedStyle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
@@ -73,6 +72,6 @@ export default function Button({
       onMouseUp={() => setIsActive(false)}
     >
       {children}
-    </a>
+    </button>
   );
 }
