@@ -9,7 +9,7 @@ export default function App() {
         heading="Shopify Websites That Convert"
         text="Clean, practical, and ready for real business use."
         align="center"
-        image={heroImage}
+        //image={heroImage}
         imageRatio="16 / 9"
         layout="boxed"
         background="#ffffff"

@@ -1,7 +1,6 @@
 import projects from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import { designTokens } from "../styles/designTokens";
-import { getSectionStyles } from "../styles/sectionStyles";
 
 export default function ProjectGridSection({
   heading = "Selected Work",
@@ -13,23 +12,46 @@ export default function ProjectGridSection({
   layout = "boxed",
   background = designTokens.colors.backgroundAlt,
   lazyLoad = true,
+  hoverEffect = "lift",
   headingStyle = {},
   textStyle = {},
-  hoverEffect = "lift",
 }) {
   const visibleProjects = cardsToShow
     ? projects.slice(0, cardsToShow)
     : projects;
 
-  const shared = getSectionStyles({
-    layout,
-    background,
-    align: sectionAlign,
-    headingStyle,
-    textStyle,
-  });
-
   const styles = {
+    section: {
+      padding:
+        layout === "full-no-gap"
+          ? "0"
+          : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+      backgroundColor: background,
+      width: "100%",
+    },
+
+    container: {
+      maxWidth:
+        layout === "boxed" ? designTokens.spacing.container : "100%",
+      margin: "0 auto",
+      width: "100%",
+    },
+
+    header: {
+      marginBottom: "32px",
+      textAlign: sectionAlign,
+    },
+
+    heading: {
+      ...designTokens.typography.sectionHeading,
+      ...headingStyle,
+    },
+
+    text: {
+      ...designTokens.typography.sectionText,
+      ...textStyle,
+    },
+
     grid: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
@@ -38,11 +60,11 @@ export default function ProjectGridSection({
   };
 
   return (
-    <section style={shared.section}>
-      <div style={shared.container}>
-        <div style={shared.header}>
-          <h2 style={shared.heading}>{heading}</h2>
-          <p style={shared.text}>{text}</p>
+    <section style={styles.section}>
+      <div style={styles.container}>
+        <div style={styles.header}>
+          <h2 style={styles.heading}>{heading}</h2>
+          <p style={styles.text}>{text}</p>
         </div>
 
         <div style={styles.grid}>
