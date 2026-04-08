@@ -1,6 +1,7 @@
 import supportBadges from "../data/supportBadges";
 import TrustBadge from "../components/TrustBadge";
 import { designTokens } from "../styles/designTokens";
+import { getButtonStyles } from "../styles/buttonStyles";
 
 export default function OngoingSupportSection({
   heading = "Ongoing Support",
@@ -8,7 +9,7 @@ export default function OngoingSupportSection({
   image,
   imageRatio = "5 / 4",
   layout = "boxed",
-  background = "#eef3fb",
+  background = designTokens.colors.backgroundSoftBlue,
   lazyLoad = true,
 }) {
   const isMobile =
@@ -22,8 +23,7 @@ export default function OngoingSupportSection({
     },
 
     container: {
-      maxWidth:
-        layout === "boxed" ? designTokens.spacing.container : "100%",
+      maxWidth: layout === "boxed" ? designTokens.spacing.container : "100%",
       margin: "0 auto",
       width: "100%",
     },
@@ -31,7 +31,7 @@ export default function OngoingSupportSection({
     grid: {
       display: "grid",
       gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-      gap: isMobile ? "24px" : "40px",
+      gap: isMobile ? "24px" : designTokens.spacing.gapLarge,
       alignItems: "center",
     },
 
@@ -40,7 +40,9 @@ export default function OngoingSupportSection({
       aspectRatio: imageRatio,
       overflow: "hidden",
       borderRadius: designTokens.radius.image,
-      backgroundColor: "#dfe7f6",
+      backgroundColor: "#dfe8f7",
+      boxShadow: designTokens.shadows.soft,
+      border: designTokens.borders.light,
     },
 
     image: {
@@ -51,7 +53,7 @@ export default function OngoingSupportSection({
     },
 
     textWrap: {
-      maxWidth: "560px",
+      maxWidth: "580px",
     },
 
     heading: {
@@ -62,12 +64,14 @@ export default function OngoingSupportSection({
     text: {
       ...designTokens.typography.sectionText,
       marginBottom: "24px",
+      maxWidth: "54ch",
     },
 
     badgeGrid: {
       display: "grid",
       gridTemplateColumns: "1fr",
       gap: "14px",
+      marginBottom: "22px",
     },
   };
 
@@ -99,6 +103,10 @@ export default function OngoingSupportSection({
                 />
               ))}
             </div>
+
+            <a href="#contact" style={getButtonStyles("outline")}>
+              Ask About Support
+            </a>
           </div>
         </div>
       </div>
