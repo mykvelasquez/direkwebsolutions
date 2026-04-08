@@ -1,5 +1,6 @@
 import { designTokens } from "../styles/designTokens";
 import { getButtonStyles } from "../styles/buttonStyles";
+import Button from "../components/Button";
 
 export default function ContactSection({
   heading = "Start a Project",
@@ -136,9 +137,9 @@ export default function ContactSection({
             </div>
 
             <div style={styles.buttonWrap}>
-              <button type="submit" style={getButtonStyles("solid")}>
+              <Button type="submit" style={getButtonStyles("solid")}>
                 Send Message
-              </button>
+              </Button>
             </div>
           </form>
         </div>

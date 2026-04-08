@@ -1,5 +1,6 @@
 import { designTokens } from "../styles/designTokens";
 import { getButtonStyles } from "../styles/buttonStyles";
+import Button from "../components/Button";
 
 export default function HeroSection({
   heading = "Where Shopify Meets Real Operations",
@@ -121,15 +122,15 @@ export default function HeroSection({
 
             <div style={styles.buttonRow}>
               {primaryButton?.label && primaryButton?.href && (
-                <a href={primaryButton.href} style={primaryStyle}>
+                <Button href={primaryButton.href} variant="solid" style={primaryStyle}>
                   {primaryButton.label}
-                </a>
+                </Button>
               )}
 
               {secondaryButton?.label && secondaryButton?.href && (
-                <a href={secondaryButton.href} style={secondaryStyle}>
+                <Button href={secondaryButton.href} variant="outline" style={secondaryStyle}>
                   {secondaryButton.label}
-                </a>
+                </Button>
               )}
             </div>
 
