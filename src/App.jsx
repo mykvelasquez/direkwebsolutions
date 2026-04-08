@@ -13,7 +13,7 @@ export default function App() {
         imageRatio="16 / 9"
         layout="boxed"
         background="#ffffff"
-        lazyLoad={false}
+        lazyLoad={true}
       />
 
       <ProjectGridSection
