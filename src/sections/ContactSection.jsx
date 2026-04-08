@@ -2,171 +2,146 @@ import { designTokens } from "../styles/designTokens";
 import { getButtonStyles } from "../styles/buttonStyles";
 
 export default function ContactSection({
-  heading = "Contact Us",
-  text = "Tell me a bit about what you need and I’ll get back to you.",
+  heading = "Start a Project",
+  text = "Tell me a bit about your store or idea. I’ll get back to you with next steps.",
   layout = "boxed",
-  background = "#ffffff",
+  background = designTokens.colors.backgroundAlt,
 }) {
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
+
   const styles = {
     section: {
       padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
-      width: "100%",
     },
 
     container: {
-      maxWidth: layout === "boxed" ? "800px" : "100%",
+      maxWidth: layout === "boxed" ? "760px" : "100%",
       margin: "0 auto",
-      width: "100%",
+    },
+
+    card: {
+      backgroundColor: "#ffffff",
+      border: designTokens.borders.light,
+      borderRadius: designTokens.radius.card,
+      padding: isMobile ? "24px" : "36px",
+      boxShadow: designTokens.shadows.card,
     },
 
     header: {
       textAlign: "center",
-      marginBottom: "32px",
+      marginBottom: "28px",
     },
 
     heading: {
       ...designTokens.typography.sectionHeading,
-      marginBottom: "12px",
+      marginBottom: "10px",
     },
 
     text: {
       ...designTokens.typography.sectionText,
-      maxWidth: "620px",
-      margin: "0 auto",
     },
 
     form: {
       display: "grid",
-      gap: "18px",
+      gap: "16px",
     },
 
-    rowTwo: {
+    row: {
       display: "grid",
-      gridTemplateColumns:
-        typeof window !== "undefined" && window.innerWidth <= 768
-          ? "1fr"
-          : "1fr 1fr",
-      gap: "18px",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+      gap: "16px",
     },
 
-    fieldWrap: {
-      display: "grid",
-      gap: "8px",
+    field: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
     },
 
     label: {
-      fontSize: "14px",
-      fontWeight: "600",
-      color: designTokens.colors.text,
+      ...designTokens.typography.label,
     },
 
     input: {
-      width: "100%",
-      padding: "14px 16px",
-      border: `1px solid ${designTokens.colors.border}`,
-      borderRadius: "12px",
+      padding: designTokens.spacing.inputPadding,
+      borderRadius: designTokens.radius.input,
+      border: designTokens.borders.light,
       fontSize: "15px",
-      color: designTokens.colors.text,
-      backgroundColor: "#ffffff",
       outline: "none",
     },
 
     textarea: {
-      width: "100%",
-      minHeight: "140px",
-      padding: "14px 16px",
-      border: `1px solid ${designTokens.colors.border}`,
-      borderRadius: "12px",
+      padding: designTokens.spacing.inputPadding,
+      borderRadius: designTokens.radius.input,
+      border: designTokens.borders.light,
       fontSize: "15px",
-      color: designTokens.colors.text,
-      backgroundColor: "#ffffff",
+      minHeight: "140px",
       resize: "vertical",
       outline: "none",
     },
 
     buttonWrap: {
-      textAlign: "center",
       marginTop: "8px",
+      textAlign: "center",
     },
   };
 
   return (
     <section id="contact" style={styles.section}>
       <div style={styles.container}>
-        <div style={styles.header}>
-          <h2 style={styles.heading}>{heading}</h2>
-          <p style={styles.text}>{text}</p>
+        <div style={styles.card}>
+          <div style={styles.header}>
+            <h2 style={styles.heading}>{heading}</h2>
+            <p style={styles.text}>{text}</p>
+          </div>
+
+          <form style={styles.form}>
+            <div style={styles.row}>
+              <div style={styles.field}>
+                <label style={styles.label}>Name</label>
+                <input type="text" style={styles.input} />
+              </div>
+
+              <div style={styles.field}>
+                <label style={styles.label}>Company</label>
+                <input type="text" style={styles.input} />
+              </div>
+            </div>
+
+            <div style={styles.row}>
+              <div style={styles.field}>
+                <label style={styles.label}>Email</label>
+                <input type="email" style={styles.input} />
+              </div>
+
+              <div style={styles.field}>
+                <label style={styles.label}>Type</label>
+                <select style={styles.input} defaultValue="">
+                  <option value="" disabled>
+                    Select one
+                  </option>
+                  <option>Inquiry</option>
+                  <option>Quote</option>
+                  <option>Project</option>
+                  <option>Support</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={styles.field}>
+              <label style={styles.label}>Message</label>
+              <textarea style={styles.textarea}></textarea>
+            </div>
+
+            <div style={styles.buttonWrap}>
+              <button type="submit" style={getButtonStyles("solid")}>
+                Send Message
+              </button>
+            </div>
+          </form>
         </div>
-
-        <form style={styles.form}>
-          <div style={styles.rowTwo}>
-            <div style={styles.fieldWrap}>
-              <label htmlFor="name" style={styles.label}>
-                Name
-              </label>
-              <input id="name" name="name" type="text" style={styles.input} />
-            </div>
-
-            <div style={styles.fieldWrap}>
-              <label htmlFor="company" style={styles.label}>
-                Company
-              </label>
-              <input
-                id="company"
-                name="company"
-                type="text"
-                style={styles.input}
-              />
-            </div>
-          </div>
-
-          <div style={styles.rowTwo}>
-            <div style={styles.fieldWrap}>
-              <label htmlFor="email" style={styles.label}>
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                style={styles.input}
-              />
-            </div>
-
-            <div style={styles.fieldWrap}>
-              <label htmlFor="type" style={styles.label}>
-                Type
-              </label>
-              <select id="type" name="type" style={styles.input} defaultValue="">
-                <option value="" disabled>
-                  Select one
-                </option>
-                <option value="Inquiry">Inquiry</option>
-                <option value="Quote">Quote</option>
-                <option value="Project">Project</option>
-                <option value="Support">Support</option>
-              </select>
-            </div>
-          </div>
-
-          <div style={styles.fieldWrap}>
-            <label htmlFor="message" style={styles.label}>
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              style={styles.textarea}
-            />
-          </div>
-
-          <div style={styles.buttonWrap}>
-            <button type="submit" style={getButtonStyles("solid")}>
-              Send Message
-            </button>
-          </div>
-        </form>
       </div>
     </section>
   );
