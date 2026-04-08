@@ -9,7 +9,6 @@ export default function App() {
         heading="Shopify Websites That Convert"
         text="Clean, practical, and ready for real business use."
         align="center"
-        image={heroImage}
         imageRatio="16 / 9"
       />
       <ProjectGridSection 
@@ -18,7 +17,7 @@ export default function App() {
         cardsToShow={4}
         sectionAlign="left"
         cardTextAlign="left"
-        imageRatio="4 / 3"
+        imageRatio="6 / 3"
       />
     </main>
   );
