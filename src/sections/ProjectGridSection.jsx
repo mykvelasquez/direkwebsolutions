@@ -54,11 +54,9 @@ export default function ProjectGridSection({
 
     grid: {
       display: "grid",
-      gridTemplateColumns: isMobile
-        ? "1fr"
-        : "repeat(auto-fit, minmax(260px, 1fr))",
-      gap: designTokens.spacing.gapLarge,
-    }
+      gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+      gap: designTokens.spacing.gap,
+    },
   };
 
   return (
