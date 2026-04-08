@@ -20,7 +20,7 @@ export default function HelpFixSection({
       padding:
         layout === "full-no-gap"
           ? "0"
-          : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+          : `${designTokens.spacing.sectionYTight} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
     },
