@@ -7,6 +7,7 @@ import supportImage from "./assets/support.png";
 import heroImage from "./assets/hero.png";
 import ContactSection from "./sections/ContactSection";
 import ProjectGridSection from "./sections/ProjectGridSection";
+import { designTokens } from "./styles/designTokens";
 
 export default function App() {
   return (
@@ -22,13 +23,14 @@ export default function App() {
         layout="boxed"
         background="#214e9b"
       />
+      
       <HeroSection
         heading="Where Shopify Meets Real Operations"
         text="Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations."
         image={heroImage}
-        imageRatio="16 / 10"
+        imageRatio="16 / 11"
         layout="boxed"
-        background="#eef3fb"
+        background={designTokens.colors.backgroundSoftBlue}
         lazyLoad={false}
         primaryButton={{ label: "Get Started", href: "#contact" }}
         secondaryButton={{ label: "View Services", href: "#services" }}
