@@ -7,6 +7,7 @@ import supportImage from "./assets/support.png";
 import heroImage from "./assets/hero.png";
 import ContactSection from "./sections/ContactSection";
 import ProjectGridSection from "./sections/ProjectGridSection";
+import { designTokens } from "./styles/designTokens";
 
 export default function App() {
   return (
@@ -37,9 +38,9 @@ export default function App() {
 
       <ServicesSection
         heading="What I Do"
-        text=""
+        text="Practical Shopify help focused on setup, store structure, checkout, and ongoing operations."
         layout="boxed"
-        background="#ffffff"
+        background={designTokens.colors.background}
         sectionAlign="center"
         cardTextAlign="center"
         hoverEffect="lift"
