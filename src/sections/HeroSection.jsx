@@ -95,7 +95,7 @@ export default function HeroSection({
       letterSpacing: isMobile ? "-0.02em" : "-0.03em",
       color: "#17325c",
       margin: "0 0 16px",
-      maxWidth: isMobile ? "16ch" : "none",
+      maxWidth: isMobile ? "18ch" : "none",
       marginLeft: isMobile ? "auto" : 0,
       marginRight: isMobile ? "auto" : 0,
       textAlign: isMobile ? "center" : "left",
