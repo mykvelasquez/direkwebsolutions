@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { designTokens } from "../styles/designTokens";
 import { getButtonStyles } from "../styles/buttonStyles";
 import Button from "../components/Button";
@@ -13,11 +14,26 @@ export default function HeroSection({
   secondaryButton = { label: "View Services", href: "#services" },
   supportText = "Setup • Payments • Delivery • Support",
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   const styles = {
     section: {
       padding:
         layout === "full-no-gap"
           ? "0"
+          : isMobile
+          ? "28px 20px 40px"
           : `40px ${designTokens.spacing.sectionX} 48px`,
       backgroundColor: background,
       width: "100%",
@@ -32,20 +48,26 @@ export default function HeroSection({
 
     content: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      alignItems: "start",
-      gap: "32px",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+      alignItems: "center",
+      gap: isMobile ? "28px" : "32px",
     },
 
     textWrap: {
       width: "100%",
-      maxWidth: "640px",
-      paddingTop: "18px",
+      maxWidth: isMobile ? "100%" : "640px",
+      paddingTop: isMobile ? "0" : "18px",
+      textAlign: isMobile ? "center" : "left",
+      order: isMobile ? 2 : 1,
+      minWidth: 0,
     },
 
     imageWrap: {
       width: "100%",
-      minHeight: "380px",
+      maxWidth: isMobile ? "340px" : "100%",
+      margin: isMobile ? "0 auto" : "0",
+      minHeight: isMobile ? "240px" : "380px",
+      aspectRatio: isMobile ? "4 / 3" : undefined,
       borderRadius: designTokens.radius.image,
       overflow: "hidden",
       background:
@@ -53,6 +75,7 @@ export default function HeroSection({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+      order: isMobile ? 1 : 2,
     },
 
     image: {
@@ -64,52 +87,68 @@ export default function HeroSection({
     },
 
     heading: {
-      fontSize: "52px",
-      lineHeight: 1.05,
+      fontSize: isMobile ? "44px" : "52px",
+      lineHeight: isMobile ? 1.02 : 1.05,
       fontWeight: "800",
       letterSpacing: "-0.03em",
       color: "#17325c",
       margin: "0 0 18px",
+      maxWidth: isMobile ? "10ch" : "none",
+      marginLeft: isMobile ? "auto" : 0,
+      marginRight: isMobile ? "auto" : 0,
     },
 
     text: {
-      fontSize: "18px",
+      fontSize: isMobile ? "17px" : "18px",
       lineHeight: 1.7,
       color: "#31445f",
       margin: "0 0 24px",
-      maxWidth: "36ch",
+      maxWidth: isMobile ? "30ch" : "36ch",
+      marginLeft: isMobile ? "auto" : 0,
+      marginRight: isMobile ? "auto" : 0,
     },
 
     buttonRow: {
-      display: "flex",
-      flexWrap: "wrap",
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr 1fr" : "auto auto",
       gap: "14px",
+      justifyContent: isMobile ? "center" : "start",
+      alignItems: "stretch",
       marginBottom: "22px",
+      width: isMobile ? "100%" : "auto",
+      maxWidth: isMobile ? "360px" : "none",
+      marginLeft: isMobile ? "auto" : 0,
+      marginRight: isMobile ? "auto" : 0,
     },
 
     supportText: {
-      fontSize: "15px",
+      fontSize: isMobile ? "14px" : "15px",
       lineHeight: 1.6,
       color: "#31445f",
       margin: 0,
       fontWeight: "500",
+      textAlign: isMobile ? "center" : "left",
     },
   };
 
   const primaryStyle = getButtonStyles("solid", {
-    padding: "15px 34px",
+    padding: isMobile ? "14px 18px" : "15px 34px",
     fontSize: "16px",
     backgroundColor: "#2d5fb3",
     border: "1px solid #2d5fb3",
     boxShadow: "0 8px 18px rgba(45, 95, 179, 0.18)",
+    width: isMobile ? "100%" : "auto",
+    justifyContent: "center",
   });
 
   const secondaryStyle = getButtonStyles("outline", {
-    padding: "15px 34px",
+    padding: isMobile ? "14px 18px" : "15px 34px",
     fontSize: "16px",
     backgroundColor: "#ffffff",
     color: "#17325c",
     border: "1px solid #c8d2e3",
+    width: isMobile ? "100%" : "auto",
+    justifyContent: "center",
   });
 
   return (
@@ -122,13 +161,21 @@ export default function HeroSection({
 
             <div style={styles.buttonRow}>
               {primaryButton?.label && primaryButton?.href && (
-                <Button href={primaryButton.href} variant="solid" style={primaryStyle}>
+                <Button
+                  href={primaryButton.href}
+                  variant="solid"
+                  style={primaryStyle}
+                >
                   {primaryButton.label}
                 </Button>
               )}
 
               {secondaryButton?.label && secondaryButton?.href && (
-                <Button href={secondaryButton.href} variant="outline" style={secondaryStyle}>
+                <Button
+                  href={secondaryButton.href}
+                  variant="outline"
+                  style={secondaryStyle}
+                >
                   {secondaryButton.label}
                 </Button>
               )}
