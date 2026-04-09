@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import services from "../data/services";
 import FeatureCard from "../components/FeatureCard";
 import { designTokens } from "../styles/designTokens";
@@ -11,8 +12,18 @@ export default function ServicesSection({
   cardTextAlign = "center",
   hoverEffect = "lift",
 }) {
-  const isMobile =
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const styles = {
     section: {
@@ -52,11 +63,13 @@ export default function ServicesSection({
     grid: isMobile
       ? {
           display: "flex",
-          gap: "16px",
+          flexWrap: "nowrap",
           overflowX: "auto",
+          overflowY: "hidden",
+          gap: "16px",
+          paddingBottom: "12px",
           scrollSnapType: "x mandatory",
           WebkitOverflowScrolling: "touch",
-          paddingBottom: "8px",
         }
       : {
           display: "grid",
@@ -67,7 +80,8 @@ export default function ServicesSection({
 
     cardWrap: isMobile
       ? {
-          flex: "0 0 85%",
+          flex: "0 0 82%",
+          minWidth: "82%",
           scrollSnapAlign: "start",
         }
       : {
