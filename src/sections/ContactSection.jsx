@@ -99,10 +99,10 @@ export default function ContactSection({
 
     try {
       await emailjs.sendForm(
-        "service_ecmhekw",
-        "DWS_Contact_Us",
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         e.target,
-        "ZzJL8qVjASYDcDUfL"
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       alert("Message sent!");
