@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { designTokens } from "../styles/designTokens";
 import { getButtonStyles } from "../styles/buttonStyles";
 import Button from "../components/Button";
+import emailjs from "@emailjs/browser";
 
 export default function ContactSection({
   heading = "Start a Project",
@@ -8,6 +10,8 @@ export default function ContactSection({
   layout = "boxed",
   background = designTokens.colors.backgroundAlt,
 }) {
+  const [isSending, setIsSending] = useState(false);
+
   const isMobile =
     typeof window !== "undefined" ? window.innerWidth <= 768 : false;
 
@@ -89,6 +93,28 @@ export default function ContactSection({
     },
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    try {
+      await emailjs.sendForm(
+        "service_ecmhekw",
+        "DWS_Contact_Us",
+        e.target,
+        "ZzJL8qVjASYDcDUfL"
+      );
+
+      alert("Message sent!");
+      e.target.reset();
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      alert("Failed to send. Try again.");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <section id="contact" style={styles.section}>
       <div style={styles.container}>
@@ -98,47 +124,89 @@ export default function ContactSection({
             <p style={styles.text}>{text}</p>
           </div>
 
-          <form style={styles.form}>
+          <form style={styles.form} onSubmit={handleSubmit}>
             <div style={styles.row}>
               <div style={styles.field}>
-                <label style={styles.label}>Name</label>
-                <input type="text" style={styles.input} />
+                <label style={styles.label} htmlFor="name">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  style={styles.input}
+                  required
+                />
               </div>
 
               <div style={styles.field}>
-                <label style={styles.label}>Company</label>
-                <input type="text" style={styles.input} />
+                <label style={styles.label} htmlFor="company">
+                  Company
+                </label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  style={styles.input}
+                />
               </div>
             </div>
 
             <div style={styles.row}>
               <div style={styles.field}>
-                <label style={styles.label}>Email</label>
-                <input type="email" style={styles.input} />
+                <label style={styles.label} htmlFor="email">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  style={styles.input}
+                  required
+                />
               </div>
 
               <div style={styles.field}>
-                <label style={styles.label}>Type</label>
-                <select style={styles.input} defaultValue="">
+                <label style={styles.label} htmlFor="type">
+                  Type
+                </label>
+                <select
+                  id="type"
+                  name="type"
+                  style={styles.input}
+                  defaultValue=""
+                  required
+                >
                   <option value="" disabled>
                     Select one
                   </option>
-                  <option>Inquiry</option>
-                  <option>Quote</option>
-                  <option>Project</option>
-                  <option>Support</option>
+                  <option value="Inquiry">Inquiry</option>
+                  <option value="Quote">Quote</option>
+                  <option value="Project">Project</option>
+                  <option value="Support">Support</option>
                 </select>
               </div>
             </div>
 
             <div style={styles.field}>
-              <label style={styles.label}>Message</label>
-              <textarea style={styles.textarea}></textarea>
+              <label style={styles.label} htmlFor="message">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                style={styles.textarea}
+                required
+              ></textarea>
             </div>
 
             <div style={styles.buttonWrap}>
-              <Button type="submit" style={getButtonStyles("solid")}>
-                Send Message
+              <Button
+                type="submit"
+                style={getButtonStyles("solid")}
+                disabled={isSending}
+              >
+                {isSending ? "Sending..." : "Send Message"}
               </Button>
             </div>
           </form>
