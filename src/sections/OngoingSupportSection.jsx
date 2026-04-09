@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import supportBadges from "../data/supportBadges";
 import { designTokens } from "../styles/designTokens";
 
@@ -14,15 +15,31 @@ export default function OngoingSupportSection({
   background = designTokens.colors.background,
   lazyLoad = true,
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   const styles = {
     section: {
       padding:
         layout === "full-no-gap"
           ? "0"
+          : isMobile
+          ? `56px 20px`
           : `${designTokens.spacing.sectionYTight} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
       borderTop: designTokens.borders.light,
+      overflow: "hidden",
     },
 
     container: {
@@ -33,18 +50,20 @@ export default function OngoingSupportSection({
 
     grid: {
       display: "grid",
-      gridTemplateColumns: "0.78fr 1.22fr",
-      gap: "60px",
+      gridTemplateColumns: isMobile ? "1fr" : "0.78fr 1.22fr",
+      gap: isMobile ? "28px" : "60px",
       alignItems: "start",
     },
 
     imageWrap: {
       width: "100%",
-      aspectRatio: imageRatio,
+      maxWidth: isMobile ? "100%" : "100%",
+      aspectRatio: isMobile ? "4 / 3" : imageRatio,
       overflow: "hidden",
       borderRadius: "15px",
       backgroundColor: "#e9edf3",
       border: designTokens.borders.light,
+      order: isMobile ? 1 : 0,
     },
 
     image: {
@@ -57,33 +76,40 @@ export default function OngoingSupportSection({
     textWrap: {
       width: "100%",
       maxWidth: "100%",
-      paddingTop: "8px",
+      minWidth: 0,
+      paddingTop: isMobile ? "0" : "8px",
+      order: isMobile ? 2 : 0,
     },
 
     headingRow: {
       display: "flex",
       alignItems: "center",
       gap: "10px",
-      marginBottom: "30px",
+      marginBottom: isMobile ? "22px" : "30px",
     },
 
     heading: {
       ...designTokens.typography.sectionHeading,
       margin: 0,
-      whiteSpace: "nowrap",
+      whiteSpace: isMobile ? "normal" : "nowrap",
+      fontSize: isMobile ? "40px" : designTokens.typography.sectionHeading.fontSize,
+      lineHeight: isMobile ? 1.15 : designTokens.typography.sectionHeading.lineHeight,
     },
 
     headingLine: {
       height: "1px",
       backgroundColor: designTokens.colors.border,
       flexGrow: 1,
+      minWidth: 0,
     },
 
     paragraph: {
-      fontSize: "20px",
-      lineHeight: 1.7,
+      fontSize: isMobile ? "18px" : "20px",
+      lineHeight: isMobile ? 1.65 : 1.7,
       color: "#24344d",
       margin: "0 0 26px",
+      wordBreak: "normal",
+      overflowWrap: "break-word",
     },
 
     strong: {
@@ -93,23 +119,26 @@ export default function OngoingSupportSection({
 
     badgeRow: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr 1fr",
-      gap: "5px",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr",
+      gap: isMobile ? "12px" : "5px",
       marginTop: "8px",
+      width: "100%",
     },
 
     badge: {
       display: "flex",
       alignItems: "center",
       gap: "12px",
-      padding: "16px 20px",
-      minHeight: "74px",
+      padding: isMobile ? "14px 16px" : "16px 20px",
+      minHeight: isMobile ? "64px" : "74px",
       backgroundColor: "#f7f8fa",
       border: designTokens.borders.light,
       borderRadius: "10px",
       boxShadow: designTokens.shadows.card,
       transition: designTokens.transitions.smooth,
       transform: "translateY(0)",
+      width: "100%",
+      boxSizing: "border-box",
     },
 
     check: {
@@ -121,10 +150,11 @@ export default function OngoingSupportSection({
     },
 
     badgeText: {
-      fontSize: "17px",
+      fontSize: isMobile ? "16px" : "17px",
       lineHeight: 1.2,
       fontWeight: "800",
       color: "#24344d",
+      overflowWrap: "break-word",
     },
   };
 
@@ -171,12 +201,18 @@ export default function OngoingSupportSection({
                   key={badge.id}
                   style={styles.badge}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
-                    e.currentTarget.style.boxShadow = designTokens.shadows.cardHover;
+                    if (!isMobile) {
+                      e.currentTarget.style.transform = "translateY(-4px)";
+                      e.currentTarget.style.boxShadow =
+                        designTokens.shadows.cardHover;
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = designTokens.shadows.card;
+                    if (!isMobile) {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow =
+                        designTokens.shadows.card;
+                    }
                   }}
                 >
                   <span style={styles.check}>✔</span>
