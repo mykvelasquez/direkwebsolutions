@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { designTokens } from "../styles/designTokens";
 import { getButtonStyles } from "../styles/buttonStyles";
 import Button from "../components/Button";
@@ -11,27 +11,43 @@ export default function ContactSection({
   background = designTokens.colors.backgroundAlt,
 }) {
   const [isSending, setIsSending] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const isMobile =
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const styles = {
     section: {
-      padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
+      padding: isMobile
+        ? `56px 20px`
+        : `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
+      overflow: "hidden",
     },
 
     container: {
       maxWidth: layout === "boxed" ? "760px" : "100%",
       margin: "0 auto",
+      width: "100%",
     },
 
     card: {
       backgroundColor: "#ffffff",
       border: designTokens.borders.light,
       borderRadius: designTokens.radius.card,
-      padding: isMobile ? "24px" : "36px",
+      padding: isMobile ? "24px 18px" : "36px",
       boxShadow: designTokens.shadows.card,
+      width: "100%",
+      boxSizing: "border-box",
+      overflow: "hidden",
     },
 
     header: {
@@ -42,27 +58,50 @@ export default function ContactSection({
     heading: {
       ...designTokens.typography.sectionHeading,
       marginBottom: "10px",
+      fontSize: isMobile ? "34px" : designTokens.typography.sectionHeading.fontSize,
+      lineHeight: isMobile ? 1.12 : designTokens.typography.sectionHeading.lineHeight,
     },
 
     text: {
       ...designTokens.typography.sectionText,
+      fontSize: isMobile ? "16px" : designTokens.typography.sectionText.fontSize,
+      lineHeight: isMobile ? 1.65 : designTokens.typography.sectionText.lineHeight,
+      maxWidth: "34ch",
+      margin: "0 auto",
+    },
+
+    directEmail: {
+      marginTop: "12px",
+      fontSize: isMobile ? "15px" : "16px",
+      lineHeight: 1.6,
+      color: "#31445f",
+    },
+
+    emailLink: {
+      color: "#2d5fb3",
+      textDecoration: "underline",
+      fontWeight: "600",
     },
 
     form: {
       display: "grid",
       gap: "16px",
+      width: "100%",
     },
 
     row: {
       display: "grid",
       gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
       gap: "16px",
+      width: "100%",
     },
 
     field: {
       display: "flex",
       flexDirection: "column",
       gap: "6px",
+      minWidth: 0,
+      width: "100%",
     },
 
     label: {
@@ -75,6 +114,9 @@ export default function ContactSection({
       border: designTokens.borders.light,
       fontSize: "15px",
       outline: "none",
+      width: "100%",
+      minWidth: 0,
+      boxSizing: "border-box",
     },
 
     textarea: {
@@ -82,9 +124,12 @@ export default function ContactSection({
       borderRadius: designTokens.radius.input,
       border: designTokens.borders.light,
       fontSize: "15px",
-      minHeight: "140px",
+      minHeight: isMobile ? "120px" : "140px",
       resize: "vertical",
       outline: "none",
+      width: "100%",
+      minWidth: 0,
+      boxSizing: "border-box",
     },
 
     buttonWrap: {
@@ -208,6 +253,16 @@ export default function ContactSection({
               >
                 {isSending ? "Sending..." : "Send Message"}
               </Button>
+          
+              <p style={{ ...styles.directEmail, marginTop: "14px" }}>
+                Or email directly:{" "}
+                <a
+                  href="mailto:mgvelasquez@direkwebsolutions.com"
+                  style={styles.emailLink}
+                >
+                  mgvelasquez@direkwebsolutions.com
+                </a>
+              </p>
             </div>
           </form>
         </div>
