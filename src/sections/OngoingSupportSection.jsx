@@ -57,7 +57,6 @@ export default function OngoingSupportSection({
 
     imageWrap: {
       width: "100%",
-      maxWidth: isMobile ? "100%" : "100%",
       aspectRatio: isMobile ? "4 / 3" : imageRatio,
       overflow: "hidden",
       borderRadius: "15px",
@@ -75,8 +74,6 @@ export default function OngoingSupportSection({
 
     textWrap: {
       width: "100%",
-      maxWidth: "100%",
-      minWidth: 0,
       paddingTop: isMobile ? "0" : "8px",
       order: isMobile ? 2 : 0,
     },
@@ -88,28 +85,27 @@ export default function OngoingSupportSection({
       marginBottom: isMobile ? "22px" : "30px",
     },
 
+    // ✅ FIXED HEADING (now matches other sections)
     heading: {
       ...designTokens.typography.sectionHeading,
       margin: 0,
       whiteSpace: isMobile ? "normal" : "nowrap",
-      fontSize: isMobile ? "40px" : designTokens.typography.sectionHeading.fontSize,
-      lineHeight: isMobile ? 1.15 : designTokens.typography.sectionHeading.lineHeight,
+      fontSize: isMobile ? "28px" : designTokens.typography.sectionHeading.fontSize,
+      lineHeight: isMobile ? 1.25 : designTokens.typography.sectionHeading.lineHeight,
     },
 
     headingLine: {
       height: "1px",
       backgroundColor: designTokens.colors.border,
       flexGrow: 1,
-      minWidth: 0,
     },
 
+    // ✅ FIXED PARAGRAPH (now consistent)
     paragraph: {
-      fontSize: isMobile ? "18px" : "20px",
-      lineHeight: isMobile ? 1.65 : 1.7,
+      fontSize: isMobile ? "16.5px" : "18px",
+      lineHeight: isMobile ? 1.6 : 1.7,
       color: "#24344d",
-      margin: "0 0 26px",
-      wordBreak: "normal",
-      overflowWrap: "break-word",
+      margin: "0 0 20px",
     },
 
     strong: {
@@ -122,7 +118,6 @@ export default function OngoingSupportSection({
       gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr",
       gap: isMobile ? "12px" : "5px",
       marginTop: "8px",
-      width: "100%",
     },
 
     badge: {
@@ -137,8 +132,6 @@ export default function OngoingSupportSection({
       boxShadow: designTokens.shadows.card,
       transition: designTokens.transitions.smooth,
       transform: "translateY(0)",
-      width: "100%",
-      boxSizing: "border-box",
     },
 
     check: {
@@ -146,15 +139,12 @@ export default function OngoingSupportSection({
       fontSize: "16px",
       fontWeight: "800",
       color: "#2d5fb3",
-      lineHeight: 1,
     },
 
     badgeText: {
-      fontSize: isMobile ? "16px" : "17px",
-      lineHeight: 1.2,
+      fontSize: isMobile ? "15.5px" : "17px",
       fontWeight: "800",
       color: "#24344d",
-      overflowWrap: "break-word",
     },
   };
 
@@ -189,7 +179,7 @@ export default function OngoingSupportSection({
               updated, and aligned with how they actually operate.
             </p>
 
-            <p style={{ ...styles.paragraph, marginBottom: "30px" }}>
+            <p style={{ ...styles.paragraph, marginBottom: "26px" }}>
               That includes product updates, store adjustments, and{" "}
               <span style={styles.strong}>ongoing support</span> as the
               business grows.
@@ -197,24 +187,7 @@ export default function OngoingSupportSection({
 
             <div style={styles.badgeRow}>
               {supportBadges.map((badge) => (
-                <div
-                  key={badge.id}
-                  style={styles.badge}
-                  onMouseEnter={(e) => {
-                    if (!isMobile) {
-                      e.currentTarget.style.transform = "translateY(-4px)";
-                      e.currentTarget.style.boxShadow =
-                        designTokens.shadows.cardHover;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isMobile) {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        designTokens.shadows.card;
-                    }
-                  }}
-                >
+                <div key={badge.id} style={styles.badge}>
                   <span style={styles.check}>✔</span>
                   <span style={styles.badgeText}>{badge.title}</span>
                 </div>
