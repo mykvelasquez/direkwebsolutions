@@ -33,7 +33,7 @@ export default function HeroSection({
         layout === "full-no-gap"
           ? "0"
           : isMobile
-          ? "28px 20px 40px"
+          ? "0 0 40px"
           : `40px ${designTokens.spacing.sectionX} 48px`,
       backgroundColor: background,
       width: "100%",
@@ -50,7 +50,7 @@ export default function HeroSection({
       display: "grid",
       gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
       alignItems: "center",
-      gap: isMobile ? "28px" : "32px",
+      gap: isMobile ? "30px" : "32px",
     },
 
     textWrap: {
@@ -60,15 +60,17 @@ export default function HeroSection({
       textAlign: isMobile ? "center" : "left",
       order: isMobile ? 2 : 1,
       minWidth: 0,
+      paddingLeft: isMobile ? "20px" : "0",
+      paddingRight: isMobile ? "20px" : "0",
+      boxSizing: "border-box",
     },
 
     imageWrap: {
       width: "100%",
-      maxWidth: isMobile ? "340px" : "100%",
-      margin: isMobile ? "0 auto" : "0",
-      minHeight: isMobile ? "240px" : "380px",
-      aspectRatio: isMobile ? "4 / 3" : undefined,
-      borderRadius: designTokens.radius.image,
+      maxWidth: "100%",
+      margin: "0",
+      minHeight: isMobile ? "260px" : "380px",
+      borderRadius: isMobile ? "0" : designTokens.radius.image,
       overflow: "hidden",
       background:
         "linear-gradient(90deg, #f3f6fb 0%, #edf2fa 45%, #d9e5fb 100%)",
@@ -87,20 +89,21 @@ export default function HeroSection({
     },
 
     heading: {
-      fontSize: isMobile ? "44px" : "52px",
-      lineHeight: isMobile ? 1.02 : 1.05,
+      fontSize: isMobile ? "36px" : "52px",
+      lineHeight: isMobile ? 1.08 : 1.05,
       fontWeight: "800",
-      letterSpacing: "-0.03em",
+      letterSpacing: isMobile ? "-0.02em" : "-0.03em",
       color: "#17325c",
-      margin: "0 0 18px",
-      maxWidth: isMobile ? "10ch" : "none",
+      margin: "0 0 16px",
+      maxWidth: isMobile ? "16ch" : "none",
       marginLeft: isMobile ? "auto" : 0,
       marginRight: isMobile ? "auto" : 0,
+      textAlign: isMobile ? "center" : "left",
     },
 
     text: {
-      fontSize: isMobile ? "17px" : "18px",
-      lineHeight: 1.7,
+      fontSize: isMobile ? "16px" : "18px",
+      lineHeight: isMobile ? 1.65 : 1.7,
       color: "#31445f",
       margin: "0 0 24px",
       maxWidth: isMobile ? "30ch" : "36ch",
@@ -114,9 +117,9 @@ export default function HeroSection({
       gap: "14px",
       justifyContent: isMobile ? "center" : "start",
       alignItems: "stretch",
-      marginBottom: "22px",
+      marginBottom: "20px",
       width: isMobile ? "100%" : "auto",
-      maxWidth: isMobile ? "360px" : "none",
+      maxWidth: isMobile ? "420px" : "none",
       marginLeft: isMobile ? "auto" : 0,
       marginRight: isMobile ? "auto" : 0,
     },
@@ -133,7 +136,7 @@ export default function HeroSection({
 
   const primaryStyle = getButtonStyles("solid", {
     padding: isMobile ? "14px 18px" : "15px 34px",
-    fontSize: "16px",
+    fontSize: isMobile ? "15px" : "16px",
     backgroundColor: "#2d5fb3",
     border: "1px solid #2d5fb3",
     boxShadow: "0 8px 18px rgba(45, 95, 179, 0.18)",
@@ -143,7 +146,7 @@ export default function HeroSection({
 
   const secondaryStyle = getButtonStyles("outline", {
     padding: isMobile ? "14px 18px" : "15px 34px",
-    fontSize: "16px",
+    fontSize: isMobile ? "15px" : "16px",
     backgroundColor: "#ffffff",
     color: "#17325c",
     border: "1px solid #c8d2e3",
