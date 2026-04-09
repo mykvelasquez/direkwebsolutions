@@ -9,6 +9,7 @@ import ContactSection from "./sections/ContactSection";
 import ProjectGridSection from "./sections/ProjectGridSection";
 import { designTokens } from "./styles/designTokens";
 import helpFixImage from "./assets/helpfix.png";
+import RevealSection from "./components/RevealSection";
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
           { label: "Contact", href: "#contact" },
         ]}
       />
-          
+
       <HeroSection
         heading="Where Shopify Meets Real Operations"
         text="Shopify stores built around how your business runs — from setup and design to payments, delivery, and day-to-day operations."
@@ -38,61 +39,71 @@ export default function App() {
         supportText="Setup • Payments • Delivery • Support"
       />
 
-      <ServicesSection
-        heading="What I Do"
-        text="Practical Shopify help focused on setup, store structure, checkout, and ongoing operations."
-        layout="boxed"
-        background={designTokens.colors.background}
-        sectionAlign="center"
-        cardTextAlign="center"
-        hoverEffect="lift"
-      />
+      <RevealSection delay={0}>
+        <ServicesSection
+          heading="What I Do"
+          text="Practical Shopify help focused on setup, store structure, checkout, and ongoing operations."
+          layout="boxed"
+          background={designTokens.colors.background}
+          sectionAlign="center"
+          cardTextAlign="center"
+          hoverEffect="lift"
+        />
+      </RevealSection>
 
-      <HelpFixSection
-        heading="What I Help Fix"
-        items={[
-          "Stores not ready for real operations",
-          "Confusing checkout setup",
-          "Inefficient order handling",
-          "Poor product organization",
-          "Hard to maintain & update",
-        ]}
-        image={helpFixImage}
-        imageRatio="5 / 4"
-        background={designTokens.colors.backgroundAlt}
-        layout="boxed"
-        lazyLoad={true}
-      />
+      <RevealSection delay={50}>
+        <HelpFixSection
+          heading="What I Help Fix"
+          items={[
+            "Stores not ready for real operations",
+            "Confusing checkout setup",
+            "Inefficient order handling",
+            "Poor product organization",
+            "Hard to maintain & update",
+          ]}
+          image={helpFixImage}
+          imageRatio="5 / 4"
+          background={designTokens.colors.backgroundAlt}
+          layout="boxed"
+          lazyLoad={true}
+        />
+      </RevealSection>
 
-      <OngoingSupportSection
-        heading="Ongoing Support"
-        text="Launching your store is only the beginning. I also help with updates, adjustments, and practical support so your Shopify store continues to work for your business over time."
-        image={supportImage}
-        imageRatio="605 / 675"
-        layout="boxed"
-        background={designTokens.colors.backgroundSoftBlue}
-        lazyLoad={true}
-      />
+      <RevealSection delay={100}>
+        <OngoingSupportSection
+          heading="Ongoing Support"
+          text="Launching your store is only the beginning. I also help with updates, adjustments, and practical support so your Shopify store continues to work for your business over time."
+          image={supportImage}
+          imageRatio="605 / 675"
+          layout="boxed"
+          background={designTokens.colors.backgroundSoftBlue}
+          lazyLoad={true}
+        />
+      </RevealSection>
 
-      <ProjectGridSection
-        heading="Selected Work"
-        text="A few Shopify-related projects and store builds."
-        cardsToShow={4}
-        sectionAlign="left"
-        cardTextAlign="left"
-        imageRatio="4 / 3"
-        layout="boxed"
-        background="#f8f8f8"
-        lazyLoad={true}
-        hoverEffect="lift"
-      />
+      <RevealSection delay={150}>
+        <ProjectGridSection
+          heading="Selected Work"
+          text="A few Shopify-related projects and store builds."
+          cardsToShow={4}
+          sectionAlign="left"
+          cardTextAlign="left"
+          imageRatio="4 / 3"
+          layout="boxed"
+          background="#f8f8f8"
+          lazyLoad={true}
+          hoverEffect="lift"
+        />
+      </RevealSection>
 
-      <ContactSection
-        heading="Contact Us"
-        text="Tell me a bit about what you need and I’ll get back to you."
-        layout="boxed"
-        background="#ffffff"
-      />
+      <RevealSection delay={200}>
+        <ContactSection
+          heading="Contact Us"
+          text="Tell me a bit about what you need and I’ll get back to you."
+          layout="boxed"
+          background="#ffffff"
+        />
+      </RevealSection>
     </main>
   );
 }
