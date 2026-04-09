@@ -19,6 +19,7 @@ export default function ServicesSection({
       padding: `${designTokens.spacing.sectionY} ${designTokens.spacing.sectionX}`,
       backgroundColor: background,
       width: "100%",
+      overflow: "hidden",
     },
 
     container: {
@@ -48,14 +49,30 @@ export default function ServicesSection({
           : "0",
     },
 
-    grid: {
-      display: "grid",
-      gridTemplateColumns: isMobile
-        ? "1fr"
-        : "repeat(auto-fit, minmax(220px, 1fr))",
-      gap: designTokens.spacing.gap,
-      alignItems: "stretch",
-    },
+    grid: isMobile
+      ? {
+          display: "flex",
+          gap: "16px",
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          WebkitOverflowScrolling: "touch",
+          paddingBottom: "8px",
+        }
+      : {
+          display: "grid",
+          gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+          gap: designTokens.spacing.gap,
+          alignItems: "stretch",
+        },
+
+    cardWrap: isMobile
+      ? {
+          flex: "0 0 85%",
+          scrollSnapAlign: "start",
+        }
+      : {
+          minWidth: 0,
+        },
   };
 
   return (
@@ -68,14 +85,15 @@ export default function ServicesSection({
 
         <div style={styles.grid}>
           {services.map((service) => (
-            <FeatureCard
-              key={service.id}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              textAlign={cardTextAlign}
-              hoverEffect={hoverEffect}
-            />
+            <div key={service.id} style={styles.cardWrap}>
+              <FeatureCard
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                textAlign={cardTextAlign}
+                hoverEffect={hoverEffect}
+              />
+            </div>
           ))}
         </div>
       </div>
