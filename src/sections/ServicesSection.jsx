@@ -80,8 +80,8 @@ export default function ServicesSection({
 
     cardWrap: isMobile
       ? {
-          flex: "0 0 82%",
-          minWidth: "82%",
+          flex: "0 0 55%",
+          minWidth: "55%",
           scrollSnapAlign: "start",
         }
       : {
