@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import projects from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import { designTokens } from "../styles/designTokens";
@@ -16,9 +17,27 @@ export default function ProjectGridSection({
   headingStyle = {},
   textStyle = {},
 }) {
+  const [activeImage, setActiveImage] = useState(null);
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        setActiveImage(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   const visibleProjects = cardsToShow
     ? projects.slice(0, cardsToShow)
     : projects;
+
+
 
   const styles = {
     section: {
@@ -57,6 +76,41 @@ export default function ProjectGridSection({
       gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
       gap: designTokens.spacing.gap,
     },
+
+    modalOverlay: {
+      position: "fixed",
+      inset: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.8)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "20px",
+      zIndex: 9999,
+      cursor: "pointer",
+    },
+
+    modalImage: {
+      maxWidth: "90vw",
+      maxHeight: "90vh",
+      width: "auto",
+      height: "auto",
+      borderRadius: "12px",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+      cursor: "default",
+    },
+
+    closeButton: {
+      position: "absolute",
+      top: "20px",
+      right: "20px",
+      background: "rgba(255,255,255,0.15)",
+      color: "#fff",
+      border: "none",
+      borderRadius: "8px",
+      padding: "10px 14px",
+      fontSize: "16px",
+      cursor: "pointer",
+    },
   };
 
   return (
@@ -79,10 +133,32 @@ export default function ProjectGridSection({
               textAlign={cardTextAlign}
               lazyLoad={lazyLoad}
               hoverEffect={hoverEffect}
+              onImageClick={() => setActiveImage(project.image)}
             />
           ))}
         </div>
       </div>
+
+      {activeImage && (
+        <div
+          style={styles.modalOverlay}
+          onClick={() => setActiveImage(null)}
+        >
+          <button
+            style={styles.closeButton}
+            onClick={() => setActiveImage(null)}
+          >
+            ✕
+          </button>
+
+          <img
+            src={activeImage}
+            alt="Expanded project preview"
+            style={styles.modalImage}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </section>
   );
 }

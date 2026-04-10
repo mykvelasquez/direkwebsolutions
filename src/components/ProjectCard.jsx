@@ -11,8 +11,14 @@ export default function ProjectCard({
   textAlign = "left",
   lazyLoad = true,
   hoverEffect = "lift",
+  onImageClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const currentImage =
+    hoverEffect === "swap-image" && isHovered && secondImage
+      ? secondImage
+      : image;
 
   const styles = {
     card: {
@@ -33,6 +39,7 @@ export default function ProjectCard({
       aspectRatio: imageRatio,
       overflow: "hidden",
       backgroundColor: "#eaeef5",
+      cursor: onImageClick ? "pointer" : "default",
     },
 
     image: {
@@ -89,13 +96,14 @@ export default function ProjectCard({
         }
       }}
     >
-      <div style={styles.imageWrap}>
+      <div
+        style={styles.imageWrap}
+        onClick={() => {
+          if (onImageClick) onImageClick(currentImage);
+        }}
+      >
         <img
-          src={
-            hoverEffect === "swap-image" && isHovered && secondImage
-              ? secondImage
-              : image
-          }
+          src={currentImage}
           alt={title}
           style={styles.image}
           loading={lazyLoad ? "lazy" : "eager"}
